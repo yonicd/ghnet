@@ -4,12 +4,14 @@
 \alias{gh_plots}
 \title{create network plots of the tidied commit data}
 \usage{
-gh_plots(plots, add_labels = "none", title = NULL)
+gh_plots(plots, add_labels = "none", title = NULL, ...)
 }
 \arguments{
 \item{plots}{output from \code{\link{create_plot}}}
 
 \item{title}{character title of plot, Default: NULL}
+
+\item{\dots}{arguments to pass to \code{\link[patchwork]{plot_layout}}}
 
 \item{add_label}{character, add labels to graph nodes, Default: 'none'}
 }

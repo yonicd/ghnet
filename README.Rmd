@@ -1,7 +1,7 @@
 ---
 output: 
   github_document:
-    dev: png
+    dev: svg
 
 always_allow_html: yes
 ---
@@ -10,6 +10,8 @@ always_allow_html: yes
 
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE,
   collapse = TRUE,
   comment = "#>",
   fig.path = "tools/readme/README-"
@@ -66,7 +68,7 @@ gh_data
  
 ### Network Plots
 
-```{r,fig.width=15,fig.ext='png'}
+```{r,fig.width=15,fig.ext='svg'}
 gh_data%>%
   gh_plots(title = 'Github Repository Contribution Network')
 
@@ -82,4 +84,17 @@ gh_data%>%
   dplyr::filter(date>=as.Date('2017-01-01'))%>%
   gh_plots(title = 'Github Repository Contribution Network',
            add_labels='both')
+```
+
+### ropenscilabs
+
+```{r,fig.width=15,height=15,fig.ext='svg'}
+ropenscilabs%>%
+  ghnet::gh_plots(add_labels = 'repo',
+                  title = 'ropensci labs contributions network',ncol=2)
+
+ropenscilabs%>%
+  dplyr::filter(date>=as.Date('2018-01-01'))%>%
+  ghnet::gh_plots(add_labels = 'both',
+                  title = 'ropensci labs contributions network')
 ```

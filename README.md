@@ -73,13 +73,6 @@ gh_data%>%
 gh_data%>%
   gh_plots(title = 'Github Repository Contribution Network',
            add_labels='user')
-#> Warning: Removed 1 rows containing missing values (geom_label).
-#> Warning: Removed 2 rows containing missing values (geom_label).
-
-#> Warning: Removed 2 rows containing missing values (geom_label).
-#> Warning: Removed 5 rows containing missing values (geom_label).
-
-#> Warning: Removed 5 rows containing missing values (geom_label).
 ```
 
 ![](tools/readme/README-unnamed-chunk-4-2.svg)<!-- -->
@@ -89,11 +82,6 @@ gh_data%>%
 gh_data%>%
   gh_plots(title = 'Github Repository Contribution Network',
            add_labels='repo')
-#> Warning: Removed 1 rows containing missing values (geom_label_repel).
-#> Warning: Removed 5 rows containing missing values (geom_label_repel).
-#> Warning: Removed 14 rows containing missing values (geom_label_repel).
-#> Warning: Removed 17 rows containing missing values (geom_label_repel).
-#> Warning: Removed 7 rows containing missing values (geom_label_repel).
 ```
 
 ![](tools/readme/README-unnamed-chunk-4-3.svg)<!-- -->
@@ -107,3 +95,23 @@ gh_data%>%
 ```
 
 ![](tools/readme/README-unnamed-chunk-4-4.svg)<!-- -->
+
+### ropenscilabs
+
+``` r
+ropenscilabs%>%
+  ghnet::gh_plots(add_labels = 'repo',
+                  title = 'ropensci labs contributions network',ncol=2)
+```
+
+![](tools/readme/README-unnamed-chunk-5-1.svg)<!-- -->
+
+``` r
+
+ropenscilabs%>%
+  dplyr::filter(date>=as.Date('2018-01-01'))%>%
+  ghnet::gh_plots(add_labels = 'both',
+                  title = 'ropensci labs contributions network')
+```
+
+![](tools/readme/README-unnamed-chunk-5-2.svg)<!-- -->
