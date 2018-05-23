@@ -1,5 +1,8 @@
 ---
-output: github_document
+output: 
+  github_document:
+    dev: png
+
 always_allow_html: yes
 ---
 
@@ -29,6 +32,7 @@ remotes::install_github('yonicd/ghnet')
 
 ```{r example}
 library(ghnet,warn.conflicts = FALSE,quietly = TRUE)
+library(hrbrthemes)
 ```
  
  
@@ -62,7 +66,7 @@ gh_data
  
 ### Network Plots
 
-```{r,fig.width=15,fig.ext='svg'}
+```{r,fig.width=15,fig.ext='png'}
 gh_data%>%
   gh_plots(title = 'Github Repository Contribution Network')
 

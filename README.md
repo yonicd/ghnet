@@ -16,6 +16,7 @@ remotes::install_github('yonicd/ghnet')
 
 ``` r
 library(ghnet,warn.conflicts = FALSE,quietly = TRUE)
+library(hrbrthemes)
 ```
 
 ### Fetch Commit Data
@@ -65,7 +66,7 @@ gh_data%>%
   gh_plots(title = 'Github Repository Contribution Network')
 ```
 
-![](tools/readme/README-unnamed-chunk-4-1.svg)<!-- -->
+![](tools/readme/README-unnamed-chunk-4-1.png)<!-- -->
 
 ``` r
 
@@ -81,7 +82,7 @@ gh_data%>%
 #> Warning: Removed 5 rows containing missing values (geom_label).
 ```
 
-![](tools/readme/README-unnamed-chunk-4-2.svg)<!-- -->
+![](tools/readme/README-unnamed-chunk-4-2.png)<!-- -->
 
 ``` r
 
@@ -95,7 +96,7 @@ gh_data%>%
 #> Warning: Removed 7 rows containing missing values (geom_label_repel).
 ```
 
-![](tools/readme/README-unnamed-chunk-4-3.svg)<!-- -->
+![](tools/readme/README-unnamed-chunk-4-3.png)<!-- -->
 
 ``` r
 
@@ -105,4 +106,4 @@ gh_data%>%
            add_labels='both')
 ```
 
-![](tools/readme/README-unnamed-chunk-4-4.svg)<!-- -->
+![](tools/readme/README-unnamed-chunk-4-4.png)<!-- -->
