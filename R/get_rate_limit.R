@@ -13,7 +13,7 @@
 #' @export
 #' @import dplyr
 #' @import purrr
-#' @importFrom jsonlite read_json
+#' @importFrom httr GET content
 #' @importFrom tibble enframe
 get_rate_limit <- function(gh_pat = NULL){
 
@@ -22,7 +22,8 @@ get_rate_limit <- function(gh_pat = NULL){
   if(!is.null(gh_pat))
     thisurl <- sprintf('%s?access_token=%s',thisurl,gh_pat)
 
-  x <- jsonlite::read_json(path = thisurl)
+  x <- httr::GET(url = thisurl)%>%
+    httr::content()
 
   ret <- dplyr::bind_cols(
     tibble::enframe(x$rate)%>%

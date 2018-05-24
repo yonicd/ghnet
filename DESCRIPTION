@@ -4,12 +4,11 @@ Title: Github Commit Network
 Version: 0.1.0
 Authors@R: person("Jonathan Sidi",role=c("aut","cre"),email="yonicd@gmail.com")
 Maintainer: The package maintainer <yonicd@gmail.com>
-Description: Fetches commit data from github using the api
-  and creates a tidy output. Creates a longitudinal network plot of user 
-  commits across repositories.
+Description: Fetches commit data from github using the api and creates a tidy output.
+          Creates a longitudinal network plot of user commits across repositories.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Imports: dplyr,tidygraph,ggraph,jsonlite,purrr,ggplot2,patchwork
+Imports: httr,dplyr,tidygraph,ggraph,ggplot2,jsonlite,tibble,purrr,tidyr,patchwork
 Remotes: tidyverse/ggplot2, thomasp85/patchwork
 RoxygenNote: 6.0.1.9000

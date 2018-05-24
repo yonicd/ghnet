@@ -4,7 +4,7 @@
 \alias{create_plot}
 \title{create network plot}
 \usage{
-create_plot(data, add_labels = "none")
+create_plot(data, add_labels = "none", touch = NULL)
 }
 \arguments{
 \item{data}{data.frame, tidied commit data from \code{\link{gh_commit_data}}}

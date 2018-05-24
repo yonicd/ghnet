@@ -17,14 +17,14 @@
 #' @import dplyr
 #' @import purrr
 #' @import patchwork
-gh_plots <- function(plots, add_labels = 'none', title = NULL, ...){
+gh_plots <- function(plots, add_labels = 'none',touch = NULL, title = NULL, ...){
 
   dat <- plots%>%
     dplyr::mutate(year=format(date,'%Y'))%>%
     split(.$year)
 
   gh_plots <- dat%>%
-      purrr::map(create_plot,add_labels = add_labels)%>%
+      purrr::map(create_plot,add_labels = add_labels, touch = touch)%>%
       purrr::reduce(`+`)
 
   if(length(dat)>1)

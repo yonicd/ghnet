@@ -39,31 +39,12 @@ library(ghnet,warn.conflicts = FALSE,quietly = TRUE)
  
 ### Fetch Commit Data
 
-Work with the nibble using tidyverse just like a `data_frame`
-
-```{r,eval=FALSE}
-repos <- c(
-'thinkr-open/remedy',
-'hrbrmstr/slackr',
-'hrbrmstr/ggalt',
-'hrbrmstr/hrbrthemes',
-'metrumresearchgroup/sinew')
-
-
-#single
-gh_data <- repos[1]%>%
-  gh_commit_data()
-
-#multiple
-gh_data <- repos%>%
-  purrr::map_df(gh_commit_data)
-
-```
-
 ```{r}
-gh_data
+
+ghnet::get_commit(user = 'thinkr-open',repo = 'remedy')
+
 ```
- 
+
  
 ### Network Plots
 

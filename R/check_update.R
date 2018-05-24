@@ -1,7 +1,8 @@
 #' @title FUNCTION_TITLE
 #' @description FUNCTION_DESCRIPTION
 #' @param user PARAM_DESCRIPTION
-#' @param datetime PARAM_DESCRIPTION, Default: gittime(Sys.Date())
+#' @param datetime PARAM_DESCRIPTION, Default: gittime(Sys.Date()-1)
+#' @param gh_pat character, github pat Default: NULL
 #' @param verbose PARAM_DESCRIPTION, Default: TRUE
 #' @return OUTPUT_DESCRIPTION
 #' @details DETAILS
@@ -16,16 +17,22 @@
 #' @rdname check_update
 #' @export
 #' @importFrom httr GET add_headers message_for_status
-check_update <- function(user, datetime = gittime(Sys.Date()), verbose = TRUE){
-  ret <- httr::GET(sprintf('https://api.github.com/users/%s',user),
+check_update <- function(user, datetime = gittime(Sys.Date()-1), gh_pat = NULL, verbose = TRUE){
+
+  thisurl <- sprintf('https://api.github.com/users/%s',user)
+
+  if(!is.null(gh_pat))
+    thisurl <- sprintf('%s?access_token=%s',thisurl,gh_pat)
+
+  ret <- httr::GET(thisurl,
             httr::add_headers('If-Modified-Since' = datetime))
 
   if(ret$status_code==304){
     if(verbose)
     httr::message_for_status(ret)
-    return(invisible(FALSE))
-  }else{
     return(invisible(TRUE))
+  }else{
+    return(invisible(FALSE))
   }
 
 }

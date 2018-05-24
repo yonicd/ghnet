@@ -24,7 +24,7 @@
 #' @importFrom tidygraph as_tbl_graph centrality_degree
 #' @import ggraph
 #' @import ggplot2
-create_plot <- function(data, add_labels = 'none'){
+create_plot <- function(data, add_labels = 'none',touch=NULL){
 
   x_year_commit <- data%>%
     dplyr::mutate(year=format(date,'%Y'))%>%
@@ -37,10 +37,11 @@ create_plot <- function(data, add_labels = 'none'){
   graph_year_commit <- x_year_commit%>%
     tidygraph::as_tbl_graph()%>%
     dplyr::mutate(Popularity = tidygraph::centrality_degree(mode = 'in'),
-           origin = ifelse(grepl('/',name),'repo','user'),
-           name = gsub('^(.*?)/','',name),
-           repo = ifelse(origin=='repo',name,NA),
-           user = ifelse(origin=='user',name,NA))
+                  origin = ifelse(name%in%data$repo,'repo','user'),
+                  force = name%in%touch,
+                  repo = ifelse(origin=='repo'|force,name,NA),
+                  user = ifelse(origin=='user'|force,name,NA),
+                  user = ifelse(name%in%touch|force,name,user))
 
   ret <- graph_year_commit%>%
     ggraph::ggraph(layout = 'kk') +
@@ -59,12 +60,12 @@ create_plot <- function(data, add_labels = 'none'){
     'user' = {
       ret +
         ggraph::geom_node_point(ggplot2::aes(size=Popularity),alpha = 0.5, show.legend = FALSE) +
-        ggraph::geom_node_label(ggplot2::aes(label=user),show.legend = FALSE)
+        ggraph::geom_node_label(ggplot2::aes(label=user,fill=origin),show.legend = FALSE)
     },
 
     'repo' = {
       ret +
-        ggraph::geom_node_label(ggplot2::aes(label=repo),repel = TRUE,show.legend = FALSE) +
+        ggraph::geom_node_label(ggplot2::aes(label=repo,fill=origin),repel = TRUE,show.legend = FALSE) +
         ggraph::geom_node_point(ggplot2::aes(size=Popularity),alpha = 0.5, show.legend = FALSE)
     },
     {

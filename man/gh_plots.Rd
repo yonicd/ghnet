@@ -4,7 +4,7 @@
 \alias{gh_plots}
 \title{create network plots of the tidied commit data}
 \usage{
-gh_plots(plots, add_labels = "none", title = NULL, ...)
+gh_plots(plots, add_labels = "none", touch = NULL, title = NULL, ...)
 }
 \arguments{
 \item{plots}{output from \code{\link{create_plot}}}
