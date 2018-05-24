@@ -41,9 +41,6 @@ get_commit <- function(user, repo, gh_pat = NULL){
   this <- httr::GET(thisurl)%>%
     httr::content()
 
-  if(is.null(this))
-    browser()
-
   this%>%
     purrr::map_df(.f=function(x){
       dplyr::as_tibble(purrr::transpose(x$weeks))%>%
