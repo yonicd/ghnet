@@ -16,7 +16,6 @@ remotes::install_github('yonicd/ghnet')
 
 ``` r
 library(ghnet,warn.conflicts = FALSE,quietly = TRUE)
-library(hrbrthemes)
 ```
 
 ### Fetch Commit Data

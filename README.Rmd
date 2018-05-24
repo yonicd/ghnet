@@ -34,7 +34,6 @@ remotes::install_github('yonicd/ghnet')
 
 ```{r example}
 library(ghnet,warn.conflicts = FALSE,quietly = TRUE)
-library(hrbrthemes)
 ```
  
  

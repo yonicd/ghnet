@@ -4,10 +4,12 @@
 \alias{gh_commit_data}
 \title{Use github API to return tidy table of commits}
 \usage{
-gh_commit_data(repo)
+gh_commit_data(repo, gh_pat = NULL)
 }
 \arguments{
 \item{repo}{repository name (user/repo)}
+
+\item{gh_pat}{character, github pat Default: NULL}
 }
 \value{
 dataframe

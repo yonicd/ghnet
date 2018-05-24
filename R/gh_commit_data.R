@@ -2,6 +2,7 @@
 #' @description Use github api rest call to fetch commit information
 #' for a repository
 #' @param repo repository name (user/repo)
+#' @param gh_pat character, github pat Default: NULL
 #' @return dataframe
 #' @details beware of the rate limit for the api
 #' @examples
@@ -31,11 +32,24 @@
 #' @importFrom jsonlite read_json
 #' @import purrr
 #' @import dplyr
-gh_commit_data <- function(repo){
+gh_commit_data <- function(repo,gh_pat = NULL){
 
-  on.exit({Sys.sleep(5)},add = TRUE)
+  rate <- get_rate_limit(gh_pat = gh_pat)
 
-  jsonlite::read_json(path = sprintf('https://api.github.com/repos/%s/stats/contributors',repo))%>%
+  if(rate$remaining[1]==0)
+    stop(sprintf('rate limit exceeded, wait %s minutes for reset ', round(rate$reset[1],2)))
+
+  if(rate$remaining[1]%in%c(1:5))
+    message(sprintf('close to exceeding rate limit, %s are left', rate$remaining[1]))
+
+  thisurl <- sprintf('https://api.github.com/repos/%s/stats/contributors',repo)
+
+  if(!is.null(gh_pat))
+    thisurl <- sprintf('%s?access_token=%s',thisurl,gh_pat)
+
+  this <- jsonlite::read_json(path = thisurl)
+
+  this%>%
     purrr::map_df(.f=function(x){
       dplyr::as_tibble(purrr::transpose(x$weeks))%>%
         dplyr::mutate_all(.funs = dplyr::funs(purrr::flatten_dbl))%>%
