@@ -9,6 +9,8 @@ Description: Fetches commit data from github using the api and creates a tidy ou
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Imports: httr,dplyr,tidygraph,ggraph,ggplot2,jsonlite,tibble,purrr,tidyr,patchwork
-Remotes: tidyverse/ggplot2, thomasp85/patchwork
-RoxygenNote: 6.0.1.9000
+Depends: R (>= 3.3.0)
+Imports: httr,dplyr,tidygraph,ggraph,ggplot2,
+  jsonlite,tibble,purrr,tidyr,patchwork,rlang
+Remotes: thomasp85/patchwork
+RoxygenNote: 6.1.1

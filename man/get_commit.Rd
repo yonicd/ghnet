@@ -4,14 +4,14 @@
 \alias{get_commit}
 \title{Use github API to return tidy table of commits}
 \usage{
-get_commit(user, repo, gh_pat = NULL)
+get_commit(owner, repo, gh_pat = Sys.getenv("GITHUB_PAT"))
 }
 \arguments{
-\item{user}{user name}
+\item{owner}{user name}
 
 \item{repo}{repository name}
 
-\item{gh_pat}{character, github pat Default: NULL}
+\item{gh_pat}{character, github pat, Default: Sys.getenv('GITHUB_PAT')}
 }
 \value{
 tibble
@@ -24,7 +24,7 @@ for a repository
 
 \dontrun{
 
-gh_data <- get_commit(user = 'thinkr-open', repo = 'remedy')
+gh_data <- get_commit(owner = 'thinkr-open', repo = 'remedy')
 
 }
 

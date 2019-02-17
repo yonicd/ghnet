@@ -4,16 +4,21 @@
 \alias{gh_plots}
 \title{create network plots of the tidied commit data}
 \usage{
-gh_plots(plots, add_labels = "none", touch = NULL, title = NULL, ...)
+gh_plots(plots, freq = "\%Y", add_labels = "none", touch = NULL,
+  title = NULL, ...)
 }
 \arguments{
 \item{plots}{output from \code{\link{create_plot}}}
 
+\item{freq}{character, frequency to facet, Default: 'Y'}
+
+\item{add_labels}{character, add labels to graph nodes, Default: 'none'}
+
+\item{touch}{add highlight for a user, Default: NULL}
+
 \item{title}{character title of plot, Default: NULL}
 
 \item{\dots}{arguments to pass to \code{\link[patchwork]{plot_layout}}}
-
-\item{add_label}{character, add labels to graph nodes, Default: 'none'}
 }
 \value{
 plot
@@ -25,9 +30,15 @@ use ggraph to create logitudinal network plots by year
 add_labels can be c('both','repo','user','none')
 }
 \examples{
+\dontrun{
+gh_data\%>\%
+  gh_plots(title = 'Github Repository Contribution Network')
 
-gh_data\%>\%gh_plots(title = 'Github Repository Contribution Network')
-
-gh_data\%>\%gh_plots(title = 'Github Repository Contribution Network',add_labels='both')
+gh_data\%>\%
+  gh_plots(
+    title = 'Github Repository Contribution Network',
+    add_labels = 'both'
+    )
+}
 
 }

@@ -8,6 +8,8 @@
 #' @import purrr
 #' @importFrom jsonlite fromJSON
 #' @importFrom tidyr nest
+#' @importFrom tibble as_tibble
+#' @importFrom rlang !! !!! sym syms
 fetch_gepuro <- function(){
 
   repos <- as.data.frame(do.call('cbind',jsonlite::fromJSON('http://rpkg.gepuro.net/download')$pkg_list),stringsAsFactors = FALSE)
@@ -15,18 +17,19 @@ fetch_gepuro <- function(){
   repos$user <- gsub('/(.*?)$','',repos$pkg_name)
   repos$repo <- gsub('^(.*?)/','',repos$pkg_name)
 
-  repos <- dplyr::as_tibble(repos)%>%
-    dplyr::select(user,repo)%>%
-    tidyr::nest(-user)
+  repos <- repos%>%
+    tibble::as_tibble()%>%
+    dplyr::select(!!! rlang::syms(c('user','repo')))%>%
+    tidyr::nest(-c(!!rlang::sym('user')))
 
   d <- repos$data%>%
     purrr::transpose()%>%
-    dplyr::as_tibble()
+    tibble::as_tibble()
 
-  d$user <- repos$user
+  d$owner <- repos$user
 
   d%>%
-    dplyr::select(user,repo)%>%
-    dplyr::mutate(n = purrr::map_dbl(repo,length))%>%
-    dplyr::arrange(desc(n))
+    dplyr::select(!!! rlang::syms(c('owner','repo')))%>%
+    dplyr::mutate(n = purrr::map_dbl(!!rlang::sym('repo'),length))%>%
+    dplyr::arrange(desc(!!rlang::sym('n')))
 }

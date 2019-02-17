@@ -2,7 +2,7 @@
 #' @description FUNCTION_DESCRIPTION
 #' @param user PARAM_DESCRIPTION
 #' @param datetime PARAM_DESCRIPTION, Default: gittime(Sys.Date()-1)
-#' @param gh_pat character, github pat Default: NULL
+#' @param gh_pat character, github pat Default: Sys.getenv('GITHUB_PAT')
 #' @param verbose PARAM_DESCRIPTION, Default: TRUE
 #' @return OUTPUT_DESCRIPTION
 #' @details DETAILS
@@ -17,7 +17,8 @@
 #' @rdname check_update
 #' @export
 #' @importFrom httr GET add_headers message_for_status
-check_update <- function(user, datetime = gittime(Sys.Date()-1), gh_pat = NULL, verbose = TRUE){
+check_update <- function(user, datetime = gittime(Sys.Date()-1),
+                         gh_pat = Sys.getenv('GITHUB_PAT'), verbose = TRUE){
 
   thisurl <- sprintf('https://api.github.com/users/%s',user)
 

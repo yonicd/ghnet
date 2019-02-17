@@ -4,15 +4,15 @@
 \alias{check_update}
 \title{FUNCTION_TITLE}
 \usage{
-check_update(user, datetime = gittime(Sys.Date() - 1), gh_pat = NULL,
-  verbose = TRUE)
+check_update(user, datetime = gittime(Sys.Date() - 1),
+  gh_pat = Sys.getenv("GITHUB_PAT"), verbose = TRUE)
 }
 \arguments{
 \item{user}{PARAM_DESCRIPTION}
 
 \item{datetime}{PARAM_DESCRIPTION, Default: gittime(Sys.Date()-1)}
 
-\item{gh_pat}{character, github pat Default: NULL}
+\item{gh_pat}{character, github pat Default: Sys.getenv('GITHUB_PAT')}
 
 \item{verbose}{PARAM_DESCRIPTION, Default: TRUE}
 }

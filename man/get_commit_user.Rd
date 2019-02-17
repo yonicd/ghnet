@@ -4,14 +4,15 @@
 \alias{get_commit_user}
 \title{get multiple commit stats}
 \usage{
-get_commit_user(user, repo = NULL, gh_pat = NULL, gepuro = NULL, ...)
+get_commit_user(owner, repo = NULL, gh_pat = Sys.getenv("GITHUB_PAT"),
+  gepuro = TRUE, ...)
 }
 \arguments{
-\item{user}{character, user to query}
+\item{owner}{character, user to query}
 
 \item{repo}{character, repositories to get, Default: NULL}
 
-\item{gh_pat}{character, github pat Default: NULL}
+\item{gh_pat}{character, github pat Default:  Sys.getenv('GITHUB_PAT')}
 
 \item{gepuro}{tibble, output from fetch_gepuro, Default=NULL}
 
@@ -28,6 +29,8 @@ if repos are null then list from fetch_gepuro output is used
 }
 \examples{
 
-gh_data <- get_commit_user(user='yonicd')
+\dontrun{
+gh_data <- get_commit_user(owner='yonicd')
+}
 
 }

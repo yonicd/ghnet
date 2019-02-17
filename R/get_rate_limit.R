@@ -15,6 +15,7 @@
 #' @import purrr
 #' @importFrom httr GET content
 #' @importFrom tibble enframe
+#' @importFrom rlang !! sym
 get_rate_limit <- function(gh_pat = NULL){
 
   thisurl <- 'https://api.github.com/rate_limit'
@@ -27,8 +28,8 @@ get_rate_limit <- function(gh_pat = NULL){
 
   ret <- dplyr::bind_cols(
     tibble::enframe(x$rate)%>%
-      dplyr::mutate(rate=purrr::flatten_dbl(value))%>%
-      dplyr::select(-value),
+      dplyr::mutate(rate=purrr::flatten_dbl(!!rlang::sym('value')))%>%
+      dplyr::select(-(!!rlang::sym('value'))),
 
     x$resources%>%
       dplyr::as_tibble()%>%
@@ -36,16 +37,18 @@ get_rate_limit <- function(gh_pat = NULL){
     )
 
   out <- ret%>%
-    dplyr::select(-name)%>%
+    dplyr::select(-(!!rlang::sym('name')))%>%
     t()%>%
     as.data.frame()%>%
-    purrr::set_names(ret$name)%>%
-    dplyr::mutate(type=rownames(.),
-                  reset = difftime(as.POSIXct(reset,
-                                                      origin="1970-01-01"),
+    purrr::set_names(ret$name)
+
+  out <- out%>%
+    dplyr::mutate(type=rownames(out),
+                  reset = difftime(as.POSIXct(!!rlang::sym('reset'),
+                                              origin="1970-01-01"),
                                            Sys.time(),
                                            units = 'min'))%>%
-    dplyr::select(type,dplyr::everything())%>%
+    dplyr::select(!!rlang::sym('type'),dplyr::everything())%>%
     dplyr::as_tibble()
 
   return(out)
