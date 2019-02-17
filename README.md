@@ -12,6 +12,8 @@ Tidied Github commit data + ggraph network plots
 remotes::install_github('yonicd/ghnet')
 ```
 
+![](https://github.com/yonicd/ghnet/blob/master/animation.gif?raw=true)
+
 ## Examples
 
 ``` r
